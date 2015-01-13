@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">	
+	
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"/> 
+		<property name="jdbcUrl" value="jdbc:mysql://localhost/test"/>
+		<property name="user" value="root"/>
+		<property name="password" value="root"/>
+		<property name="maxPoolSize" value="40"/>
+		<property name="minPoolSize" value="1"/>
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>com/wanshu/bean/Account.hbm.xml</value>
+				<value>com/wanshu/bean/AccountDetail.hbm.xml</value>
+				<value>com/wanshu/bean/Family.hbm.xml</value>
+				<value>com/wanshu/bean/FamilyUser.hbm.xml</value>
+				<value>com/wanshu/bean/Person.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.MySQLDialect
+				hibernate.show_sql=true
+				hibernate.hbm2ddl.auto=update
+			</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="personDao" class="com.wanshu.dao.impl.PersonDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="leeService" class="com.wanshu.service.impl.LeeServiceImpl">
+		<property name="personDao" ref="personDao"/>
+	</bean>
+	
+	
+	<bean id="familyDao" class="com.wanshu.dao.impl.FamilyDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="familyUserDao" class="com.wanshu.dao.impl.FamilyUserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="accountDao" class="com.wanshu.dao.impl.AccountDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="accountDetailDao" class="com.wanshu.dao.impl.AccountDetailDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="ffService" class="com.wanshu.service.impl.FFServiceImpl">
+		<property name="familyDao" ref="familyDao"/>
+		<property name="familyUserDao" ref="familyUserDao"/>
+		<property name="accountDao" ref="accountDao"></property>
+		<property name="accountDetailDao" ref="accountDetailDao"></property>
+	</bean>
+	
+	
+</beans>
