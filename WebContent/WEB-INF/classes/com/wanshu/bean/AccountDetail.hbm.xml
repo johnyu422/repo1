@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014-10-18 16:09:30 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.wanshu.bean.AccountDetail" table="ACCOUNTDETAIL">
+        <id name="detail_id" type="java.lang.Integer">
+            <column name="DETAIL_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="income" type="float">
+            <column name="INCOME" />
+        </property>
+        <property name="expenditure" type="float">
+            <column name="EXPENDITURE" />
+        </property>
+        <property name="reason" type="java.lang.String">
+            <column name="REASON" />
+        </property>
+        <property name="time" type="java.util.Date">
+            <column name="TIME" />
+        </property>
+        <many-to-one name="account" class="com.wanshu.bean.Account" >
+            <column name="ACCOUNT_ID" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

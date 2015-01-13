@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014-10-18 10:49:42 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.wanshu.bean.Account" table="ACCOUNT">
+        <id name="account_id" type="java.lang.Integer">
+            <column name="ACCOUNT_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="account_no" type="java.lang.String">
+            <column name="ACCOUNT_NO" />
+        </property>
+        <property name="balance" type="float">
+            <column name="BALANCE" />
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="type" type="int">
+            <column name="TYPE" />
+        </property>
+        <property name="addTime" type="java.util.Date">
+            <column name="ADDTIME" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+        <property name="remark" type="java.lang.String">
+            <column name="REMARK" />
+        </property>
+        <many-to-one name="familyUser" class="com.wanshu.bean.FamilyUser" >
+            <column name="USER_ID" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
